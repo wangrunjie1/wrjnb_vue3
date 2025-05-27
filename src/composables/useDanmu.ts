@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const danmuList = ref<Danmu[]>([])
@@ -87,20 +87,18 @@ function getSpeedLabel(n: number) {
   return ''
 }
 
-// 自动轮询
-import { onMounted, onBeforeUnmount } from 'vue'
-onMounted(() => {
-  fetchDanmu()
-  danmuTimer = window.setInterval(() => {
-    fetchDanmu()
-    setTimeout(updateDanmuList, 1000)
-  }, 2000)
-})
-onBeforeUnmount(() => {
-  if (danmuTimer) clearInterval(danmuTimer)
-})
-
 export function useDanmu() {
+  // 自动轮询
+  onMounted(() => {
+    fetchDanmu()
+    danmuTimer = window.setInterval(() => {
+      fetchDanmu()
+      setTimeout(updateDanmuList, 1000)
+    }, 2000)
+  })
+  onBeforeUnmount(() => {
+    if (danmuTimer) clearInterval(danmuTimer)
+  })
   return {
     danmuList,
     showDanmuInput,
