@@ -88,7 +88,7 @@ const activeCategory = computed(() => route.path)
   min-height: 100vh;
   font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
   backdrop-filter: blur(24px) saturate(180%);
-  box-shadow: 0 0 80px 0 rgba(0,255,255,0.08) inset;
+  box-shadow: 0 0 80px 0 rgba(0, 255, 255, 0.08) inset;
 }
 
 .tools-layout {
@@ -96,7 +96,7 @@ const activeCategory = computed(() => route.path)
   height: calc(100vh - 60px);
   min-height: 0;
   position: relative;
-  box-shadow: 0 0 40px 0 rgba(0,255,255,0.10) inset;
+  box-shadow: 0 0 40px 0 rgba(0, 255, 255, 0.1) inset;
 }
 
 .tools-sidebar {
@@ -118,27 +118,36 @@ const activeCategory = computed(() => route.path)
   --el-menu-bg-color: transparent;
   --el-menu-text-color: #b0eaff;
   --el-menu-active-color: #00ffe7;
-  --el-menu-hover-bg-color: rgba(0,255,231,0.08);
+  --el-menu-hover-bg-color: rgba(0, 255, 231, 0.08);
   --el-menu-item-height: 48px;
   font-size: 1.08rem;
   font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
 }
 
-.el-menu-item, .el-sub-menu__title {
-  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+.el-menu-item,
+.el-sub-menu__title {
+  transition:
+    color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
   border-radius: 8px;
   margin: 2px 8px;
   box-shadow: 0 0 0 transparent;
 }
-.el-menu-item:hover, .el-sub-menu__title:hover {
+.el-menu-item:hover,
+.el-sub-menu__title:hover {
   color: #fff;
   background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%);
-  box-shadow: 0 0 12px #00ffe7a0, 0 0 4px #007cf0a0;
+  box-shadow:
+    0 0 12px #00ffe7a0,
+    0 0 4px #007cf0a0;
 }
 .el-menu-item.is-active {
   color: #fff !important;
   background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
-  box-shadow: 0 0 16px #00ffe7cc, 0 0 8px #007cf0cc;
+  box-shadow:
+    0 0 16px #00ffe7cc,
+    0 0 8px #007cf0cc;
   border: 1.5px solid #00ffe7;
 }
 
@@ -151,7 +160,9 @@ const activeCategory = computed(() => route.path)
   background: rgba(10, 20, 40, 0.7);
   border-radius: 24px;
   margin: 1.5rem 1.5rem 1.5rem 0;
-  box-shadow: 0 0 32px 0 #00ffe7a0 inset, 0 0 24px 0 #007cf0a0;
+  box-shadow:
+    0 0 32px 0 #00ffe7a0 inset,
+    0 0 24px 0 #007cf0a0;
   border: 1.5px solid #00ffe733;
 }
 
@@ -171,13 +182,19 @@ const activeCategory = computed(() => route.path)
     justify-content: center;
     border: none;
     font-size: 32px;
-    box-shadow: 0 0 24px #00ffe7a0, 0 0 8px #007cf0a0;
-    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow:
+      0 0 24px #00ffe7a0,
+      0 0 8px #007cf0a0;
+    transition:
+      background 0.2s,
+      box-shadow 0.2s;
     outline: 2px solid #00ffe755;
   }
   .mobile-nav-btn-inner:hover {
     background: linear-gradient(135deg, #007cf0 0%, #00ffe7 100%);
-    box-shadow: 0 0 32px #00ffe7cc, 0 0 16px #007cf0cc;
+    box-shadow:
+      0 0 32px #00ffe7cc,
+      0 0 16px #007cf0cc;
   }
   svg {
     display: block;
@@ -188,12 +205,43 @@ const activeCategory = computed(() => route.path)
 
 .mobile-drawer {
   z-index: 1003;
-  background: rgba(20, 30, 48, 0.98);
+  background: rgba(20, 30, 48, 0.98) !important;
   box-shadow: -8px 0 32px #00ffe7a0;
   border-left: 2px solid #00ffe7;
-  .el-menu {
-    background: transparent;
-  }
+}
+:deep(.el-drawer) {
+  background: rgba(20, 30, 48, 0.98) !important;
+}
+.mobile-drawer .el-menu {
+  background: transparent !important;
+  --el-menu-bg-color: transparent;
+  --el-menu-text-color: #b0eaff;
+  --el-menu-active-color: #00ffe7;
+  --el-menu-hover-bg-color: rgba(0, 255, 231, 0.08);
+  --el-menu-item-height: 48px;
+  font-size: 1.08rem;
+  font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+}
+.mobile-drawer .el-menu-item,
+.mobile-drawer .el-sub-menu__title {
+  color: #b0eaff !important;
+  background: transparent !important;
+}
+.mobile-drawer .el-menu-item.is-active {
+  color: #fff !important;
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
+  box-shadow:
+    0 0 16px #00ffe7cc,
+    0 0 8px #007cf0cc;
+  border: 1.5px solid #00ffe7;
+}
+.mobile-drawer .el-menu-item:hover,
+.mobile-drawer .el-sub-menu__title:hover {
+  color: #fff !important;
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
+  box-shadow:
+    0 0 12px #00ffe7a0,
+    0 0 4px #007cf0a0;
 }
 
 .el-drawer__body {

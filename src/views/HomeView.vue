@@ -663,12 +663,6 @@ onMounted(() => {
   gap: 0.5em;
 }
 
-/* 自定义滚动条样式 */
-:deep(.el-scrollbar) {
-  width: 8px;
-  background: rgba(10, 20, 40, 0.8);
-  border-radius: 4px;
-}
 :deep(.el-scrollbar__bar) {
   background: #00ffe7a0 !important;
   border-radius: 4px;
