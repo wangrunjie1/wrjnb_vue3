@@ -1,23 +1,21 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>时间戳转换工具</h2>
-      <el-form label-width="90px">
-        <el-form-item label="时间戳">
-          <el-input v-model="timestamp" placeholder="如 1680000000" />
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="toDate">转为日期</el-button>
-        </el-form-item>
-        <el-form-item label="日期">
-          <el-date-picker v-model="date" type="datetime" placeholder="选择日期时间" style="width:100%;" />
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="toTimestamp">转为时间戳</el-button>
-        </el-form-item>
-      </el-form>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">时间戳转换工具</h2>
+    <el-form label-width="90px">
+      <el-form-item label="时间戳">
+        <el-input v-model="timestamp" placeholder="如 1680000000" class="sci-input" />
+      </el-form-item>
+      <el-form-item>
+        <el-button class="sci-btn" @click="toDate">转为日期</el-button>
+      </el-form-item>
+      <el-form-item label="日期">
+        <el-date-picker v-model="date" type="datetime" placeholder="选择日期时间" style="width:100%;" />
+      </el-form-item>
+      <el-form-item>
+        <el-button class="sci-btn" @click="toTimestamp">转为时间戳</el-button>
+      </el-form-item>
+    </el-form>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -44,3 +42,6 @@ function toTimestamp() {
   timestamp.value = Math.floor(date.value / 1000).toString()
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

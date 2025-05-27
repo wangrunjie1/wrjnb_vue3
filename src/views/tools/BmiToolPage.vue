@@ -1,20 +1,18 @@
 <template>
-  <div style="max-width: 500px; margin: auto">
-    <el-card>
-      <h2>BMI计算器</h2>
-      <el-form label-width="80px">
-        <el-form-item label="身高(cm)">
-          <el-input-number v-model="height" :min="50" :max="250" />
-        </el-form-item>
-        <el-form-item label="体重(kg)">
-          <el-input-number v-model="weight" :min="10" :max="200" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="calc">计算</el-button>
-        </el-form-item>
-      </el-form>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top: 1em" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">BMI计算器</h2>
+    <el-form label-width="80px">
+      <el-form-item label="身高(cm)">
+        <el-input-number v-model="height" :min="50" :max="250" class="sci-input" />
+      </el-form-item>
+      <el-form-item label="体重(kg)">
+        <el-input-number v-model="weight" :min="10" :max="200" class="sci-input" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" class="sci-btn" @click="calc">计算</el-button>
+      </el-form-item>
+    </el-form>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top: 1em" />
   </div>
 </template>
 <script setup lang="ts">
@@ -33,3 +31,6 @@ function calc() {
   result.value = `BMI：${bmi.toFixed(2)}，${level}`
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

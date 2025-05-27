@@ -1,33 +1,31 @@
 <template>
-  <div style="max-width:600px;margin:auto;">
-    <el-card>
-      <h2>进制转换工具</h2>
-      <el-form label-width="80px">
-        <el-form-item label="原数值">
-          <el-input v-model="input" placeholder="如 1010" />
-        </el-form-item>
-        <el-form-item label="原进制">
-          <el-select v-model="from" style="width:100px;">
-            <el-option label="2" :value="2" />
-            <el-option label="8" :value="8" />
-            <el-option label="10" :value="10" />
-            <el-option label="16" :value="16" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="目标进制">
-          <el-select v-model="to" style="width:100px;">
-            <el-option label="2" :value="2" />
-            <el-option label="8" :value="8" />
-            <el-option label="10" :value="10" />
-            <el-option label="16" :value="16" />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="convert">转换</el-button>
-        </el-form-item>
-      </el-form>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">进制转换工具</h2>
+    <el-form label-width="80px">
+      <el-form-item label="原数值">
+        <el-input v-model="input" placeholder="如 1010" class="sci-input" />
+      </el-form-item>
+      <el-form-item label="原进制">
+        <el-select v-model="from" style="width:100px;">
+          <el-option label="2" :value="2" />
+          <el-option label="8" :value="8" />
+          <el-option label="10" :value="10" />
+          <el-option label="16" :value="16" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="目标进制">
+        <el-select v-model="to" style="width:100px;">
+          <el-option label="2" :value="2" />
+          <el-option label="8" :value="8" />
+          <el-option label="10" :value="10" />
+          <el-option label="16" :value="16" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" class="sci-btn" @click="convert">转换</el-button>
+      </el-form-item>
+    </el-form>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -49,3 +47,6 @@ function convert() {
   }
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

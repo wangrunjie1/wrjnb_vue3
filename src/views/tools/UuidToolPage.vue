@@ -1,12 +1,10 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>UUID生成工具</h2>
-      <el-input v-model="uuid" readonly style="margin-bottom:1em;" />
-      <el-button type="primary" @click="generate">生成UUID</el-button>
-      <el-button @click="copy" style="margin-left:1em;">复制</el-button>
-      <el-alert v-if="msg" :title="msg" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">UUID生成工具</h2>
+    <el-input v-model="uuid" readonly class="sci-input" style="margin-bottom:1em;" />
+    <el-button type="primary" @click="generate" class="sci-btn">生成UUID</el-button>
+    <el-button @click="copy" class="sci-btn" style="margin-left:1em;">复制</el-button>
+    <el-alert v-if="msg" :title="msg" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -28,3 +26,6 @@ function copy() {
   msg.value = '已复制到剪贴板'
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

@@ -1,20 +1,18 @@
 <template>
-  <div style="max-width: 500px; margin: auto">
-    <el-card>
-      <h2>RGB/HEX颜色转换</h2>
-      <el-form label-width="80px">
-        <el-form-item label="HEX">
-          <el-input v-model="hex" placeholder="#RRGGBB" @input="hexToRgb" />
-        </el-form-item>
-        <el-form-item label="RGB">
-          <el-input v-model="rgb" placeholder="rgb(255,255,255)" @input="rgbToHex" />
-        </el-form-item>
-      </el-form>
-      <div
-        v-if="color"
-        :style="{ background: color, height: '40px', margin: '1em 0', borderRadius: '6px' }"
-      ></div>
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">RGB/HEX颜色转换</h2>
+    <el-form label-width="80px">
+      <el-form-item label="HEX">
+        <el-input v-model="hex" placeholder="#RRGGBB" @input="hexToRgb" class="sci-input" />
+      </el-form-item>
+      <el-form-item label="RGB">
+        <el-input v-model="rgb" placeholder="rgb(255,255,255)" @input="rgbToHex" class="sci-input" />
+      </el-form-item>
+    </el-form>
+    <div
+      v-if="color"
+      :style="{ background: color, height: '40px', margin: '1em 0', borderRadius: '6px' }"
+    ></div>
   </div>
 </template>
 <script setup lang="ts">
@@ -44,3 +42,6 @@ function rgbToHex() {
   color.value = `#${h}`
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

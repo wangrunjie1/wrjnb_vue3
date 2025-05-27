@@ -1,22 +1,22 @@
 <template>
-  <div style="max-width: 500px; margin: auto">
-    <el-card>
-      <h2>颜色进制转换</h2>
-      <el-input v-model="hex" placeholder="#RRGGBB" @input="hexToRgbHsl" />
-      <el-input
-        v-model="rgb"
-        placeholder="rgb(255,255,255)"
-        @input="rgbToHexHsl"
-        style="margin-top: 1em"
-      />
-      <el-input
-        v-model="hsl"
-        placeholder="hsl(0,0%,100%)"
-        @input="hslToHexRgb"
-        style="margin-top: 1em"
-      />
-      <div :style="{ background: hex, height: '40px', margin: '1em 0', borderRadius: '6px' }"></div>
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">颜色进制转换</h2>
+    <el-input v-model="hex" placeholder="#RRGGBB" @input="hexToRgbHsl" class="sci-input" />
+    <el-input
+      v-model="rgb"
+      placeholder="rgb(255,255,255)"
+      @input="rgbToHexHsl"
+      class="sci-input"
+      style="margin-top: 1em"
+    />
+    <el-input
+      v-model="hsl"
+      placeholder="hsl(0,0%,100%)"
+      @input="hslToHexRgb"
+      class="sci-input"
+      style="margin-top: 1em"
+    />
+    <div :style="{ background: hex, height: '40px', margin: '1em 0', borderRadius: '6px' }"></div>
   </div>
 </template>
 <script setup lang="ts">
@@ -89,3 +89,6 @@ function hslToHexRgb() {
   hex.value = `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

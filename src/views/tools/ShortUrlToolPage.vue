@@ -1,12 +1,10 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>短链生成</h2>
-      <el-input v-model="url" placeholder="请输入长网址" />
-      <el-button type="primary" style="margin-top:1em;" @click="gen">生成短链</el-button>
-      <el-input v-model="shortUrl" readonly style="margin-top:1em;" placeholder="短链结果" />
-      <el-alert v-if="error" type="error" :title="error" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">短链生成</h2>
+    <el-input v-model="url" placeholder="请输入长网址" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="gen">生成短链</el-button>
+    <el-input v-model="shortUrl" readonly class="sci-input" style="margin-top:1em;" placeholder="短链结果" />
+    <el-alert v-if="error" type="error" :title="error" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -30,3 +28,6 @@ async function gen() {
   }
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

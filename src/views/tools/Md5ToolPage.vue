@@ -1,11 +1,9 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>MD5加密工具</h2>
-      <el-input v-model="input" type="textarea" :rows="4" placeholder="输入要加密的内容" />
-      <el-button type="primary" style="margin-top:1em;" @click="calcMd5">加密</el-button>
-      <el-input v-model="output" readonly style="margin-top:1em;" placeholder="MD5结果" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">MD5加密工具</h2>
+    <el-input v-model="input" type="textarea" :rows="4" placeholder="输入要加密的内容" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="calcMd5">加密</el-button>
+    <el-input v-model="output" readonly class="sci-input" style="margin-top:1em;" placeholder="MD5结果" />
   </div>
 </template>
 <script setup lang="ts">
@@ -27,3 +25,6 @@ async function calcMd5() {
   output.value = await md5(input.value)
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

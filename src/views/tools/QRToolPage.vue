@@ -1,8 +1,8 @@
 <template>
-  <section class="tool-section">
-    <h2>二维码生成</h2>
-    <el-input v-model="text" placeholder="请输入内容" style="max-width:320px;" />
-    <div v-if="text" class="qr-result">
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">二维码生成</h2>
+    <el-input v-model="text" placeholder="请输入内容" class="sci-input" style="max-width:320px;" />
+    <div v-if="text" class="qr-result sci-result">
       <qrcode-vue :value="text" :size="180" />
     </div>
   </section>
@@ -15,11 +15,7 @@ const text = ref('')
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+@import './_sci-style.css';
 .qr-result {
   margin-top: 1.5em;
   text-align: center;

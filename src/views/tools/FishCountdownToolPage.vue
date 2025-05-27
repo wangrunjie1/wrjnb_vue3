@@ -1,8 +1,8 @@
 <template>
-  <section class="tool-section">
-    <h2>摸鱼倒计时</h2>
-    <el-button @click="start" type="primary">开始摸鱼倒计时</el-button>
-    <div v-if="left" class="fish-result">距离下班还有：{{ left }}</div>
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">摸鱼倒计时</h2>
+    <el-button @click="start" type="primary" class="sci-btn">开始摸鱼倒计时</el-button>
+    <div v-if="left" class="fish-result sci-result">距离下班还有：{{ left }}</div>
   </section>
 </template>
 
@@ -32,10 +32,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+@import './_sci-style.css';
 .tool-section {
   max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
 }
 .fish-result {
   margin-top: 1.2em;

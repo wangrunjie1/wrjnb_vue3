@@ -1,10 +1,10 @@
 <template>
-  <section class="tool-section">
-    <h2>日期差计算</h2>
-    <el-date-picker v-model="date1" type="date" placeholder="开始日期" style="margin-right:10px;" />
-    <el-date-picker v-model="date2" type="date" placeholder="结束日期" />
-    <el-button @click="calc" type="primary" style="margin-left:10px;">计算</el-button>
-    <div v-if="result !== null" class="datediff-result">
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">日期差计算</h2>
+    <el-date-picker v-model="date1" type="date" placeholder="开始日期" class="sci-input" style="margin-right:10px;" />
+    <el-date-picker v-model="date2" type="date" placeholder="结束日期" class="sci-input" />
+    <el-button class="sci-btn" style="margin-left:10px;" @click="calc" type="primary">计算</el-button>
+    <div v-if="result !== null" class="datediff-result sci-result">
       相差：{{ result }} 天
     </div>
   </section>
@@ -27,14 +27,5 @@ function calc() {
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-.datediff-result {
-  margin-top: 1.2em;
-  font-size: 1.2em;
-  color: #e6a23c;
-}
+@import './_sci-style.css';
 </style>

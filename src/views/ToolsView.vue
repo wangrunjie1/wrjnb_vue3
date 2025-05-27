@@ -81,68 +81,131 @@ const activeCategory = computed(() => route.path)
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+.tools-root {
+  background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+  min-height: 100vh;
+  font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 0 80px 0 rgba(0,255,255,0.08) inset;
+}
+
 .tools-layout {
   display: flex;
   height: calc(100vh - 60px);
   min-height: 0;
   position: relative;
+  box-shadow: 0 0 40px 0 rgba(0,255,255,0.10) inset;
 }
+
 .tools-sidebar {
-  width: 220px;
-  background: rgba(255, 255, 255, 0.95);
-  border-right: 1px solid #f0f0f0;
+  width: 240px;
+  background: rgba(20, 30, 48, 0.92);
+  border-right: 2px solid #00ffe7;
   padding-top: 2.5rem;
   height: calc(100vh - 60px);
   min-height: 0;
   z-index: 2;
   overflow-y: auto;
+  box-shadow: 4px 0 24px 0 #00ffe7a0;
+  border-radius: 0 24px 24px 0;
 }
+
 .tools-menu {
   border-right: none;
   background: transparent;
+  --el-menu-bg-color: transparent;
+  --el-menu-text-color: #b0eaff;
+  --el-menu-active-color: #00ffe7;
+  --el-menu-hover-bg-color: rgba(0,255,231,0.08);
+  --el-menu-item-height: 48px;
+  font-size: 1.08rem;
+  font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
 }
+
+.el-menu-item, .el-sub-menu__title {
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+  border-radius: 8px;
+  margin: 2px 8px;
+  box-shadow: 0 0 0 transparent;
+}
+.el-menu-item:hover, .el-sub-menu__title:hover {
+  color: #fff;
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%);
+  box-shadow: 0 0 12px #00ffe7a0, 0 0 4px #007cf0a0;
+}
+.el-menu-item.is-active {
+  color: #fff !important;
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
+  box-shadow: 0 0 16px #00ffe7cc, 0 0 8px #007cf0cc;
+  border: 1.5px solid #00ffe7;
+}
+
 .tools-content {
   flex: 1;
   padding: 2.5rem 2vw 2.5rem 2vw;
   min-width: 0;
   height: calc(100vh - 60px);
   overflow-y: auto;
+  background: rgba(10, 20, 40, 0.7);
+  border-radius: 24px;
+  margin: 1.5rem 1.5rem 1.5rem 0;
+  box-shadow: 0 0 32px 0 #00ffe7a0 inset, 0 0 24px 0 #007cf0a0;
+  border: 1.5px solid #00ffe733;
 }
+
 .mobile-nav-btn {
   position: fixed;
   top: 18px;
   right: 18px;
   z-index: 1002;
-  /* 提高可见性 */
   .mobile-nav-btn-inner {
-    width: 48px;
-    height: 48px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
-    background: #409eff;
+    background: linear-gradient(135deg, #00ffe7 0%, #007cf0 100%);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    font-size: 28px;
-    box-shadow: 0 2px 12px rgba(64, 158, 255, 0.18);
-    transition: background 0.2s;
+    font-size: 32px;
+    box-shadow: 0 0 24px #00ffe7a0, 0 0 8px #007cf0a0;
+    transition: background 0.2s, box-shadow 0.2s;
+    outline: 2px solid #00ffe755;
   }
   .mobile-nav-btn-inner:hover {
-    background: #66b1ff;
+    background: linear-gradient(135deg, #007cf0 0%, #00ffe7 100%);
+    box-shadow: 0 0 32px #00ffe7cc, 0 0 16px #007cf0cc;
   }
   svg {
     display: block;
     margin: auto;
+    filter: drop-shadow(0 0 6px #00ffe7cc);
   }
 }
+
 .mobile-drawer {
   z-index: 1003;
+  background: rgba(20, 30, 48, 0.98);
+  box-shadow: -8px 0 32px #00ffe7a0;
+  border-left: 2px solid #00ffe7;
+  .el-menu {
+    background: transparent;
+  }
 }
+
+.el-drawer__body {
+  padding: 0 !important;
+}
+
 @media (max-width: 900px) {
   .tools-layout {
     flex-direction: column;
     min-height: 0;
+    background: none;
+    box-shadow: none;
   }
   .tools-sidebar {
     display: none;
@@ -151,15 +214,23 @@ const activeCategory = computed(() => route.path)
   .tools-content {
     padding: 1.2rem 0.5rem;
     overflow-y: visible;
+    margin: 1rem 0.5rem;
+    border-radius: 18px;
   }
   .mobile-drawer {
-    /* 让抽屉内容高度自适应屏幕 */
     height: 100vh !important;
     max-height: 100vh;
+    border-radius: 24px 0 0 24px;
   }
 }
-.tools-root {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #1a2a3a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00ffe7 0%, #007cf0 100%);
+  border-radius: 8px;
+  box-shadow: 0 0 8px #00ffe7a0;
 }
 </style>

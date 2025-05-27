@@ -1,34 +1,37 @@
 <template>
-  <div style="max-width:900px;margin:auto;">
-    <el-card>
-      <h2>JSON对比工具</h2>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-input
-            v-model="json1"
-            type="textarea"
-            :rows="16"
-            placeholder="输入第一个JSON"
-          />
-          <el-button size="small" style="margin-top:0.5em;" @click="formatJson(1)">格式化</el-button>
-        </el-col>
-        <el-col :span="12">
-          <el-input
-            v-model="json2"
-            type="textarea"
-            :rows="16"
-            placeholder="输入第二个JSON"
-          />
-          <el-button size="small" style="margin-top:0.5em;" @click="formatJson(2)">格式化</el-button>
-        </el-col>
-      </el-row>
-      <el-button type="primary" style="margin-top:1em;" @click="compareJson">对比</el-button>
-      <el-alert v-if="error" type="error" :title="error" show-icon style="margin-top:1em;" />
-      <div v-if="diffResult" style="margin-top:1em;">
-        <h4>对比结果：</h4>
-        <pre v-html="diffResult" style="background:#f8f8f8;padding:1em;border-radius:6px;overflow:auto;"></pre>
-      </div>
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">JSON对比工具</h2>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-input
+          v-model="json1"
+          type="textarea"
+          :rows="16"
+          placeholder="输入第一个JSON"
+          class="sci-input"
+        />
+        <el-button size="small" style="margin-top:0.5em;" @click="formatJson(1)" class="sci-btn">格式化</el-button>
+      </el-col>
+      <el-col :span="12">
+        <el-input
+          v-model="json2"
+          type="textarea"
+          :rows="16"
+          placeholder="输入第二个JSON"
+          class="sci-input"
+        />
+        <el-button size="small" style="margin-top:0.5em;" @click="formatJson(2)" class="sci-btn">格式化</el-button>
+      </el-col>
+    </el-row>
+    <el-button type="primary" style="margin-top:1em;" @click="compareJson" class="sci-btn">对比</el-button>
+    <el-alert v-if="error" type="error" :title="error" show-icon class="sci-alert" style="margin-top:1em;" />
+    <div v-if="diffResult" style="margin-top:1em;">
+      <h4>对比结果：</h4>
+      <pre
+        v-html="diffResult"
+        style="background:#101c2c;padding:1em;border-radius:6px;overflow:auto;color:#b0eaff;"
+      ></pre>
+    </div>
   </div>
 </template>
 
@@ -117,11 +120,12 @@ function formatJson(which: 1 | 2) {
 </script>
 
 <style scoped>
+@import './_sci-style.css';
 pre {
   font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
   font-size: 1em;
 }
-.string { color: #008000; }
+.string { color: #00ffe7; }
 .number { color: #1976d2; }
 .boolean { color: #d32f2f; }
 .null { color: #bdbdbd; }

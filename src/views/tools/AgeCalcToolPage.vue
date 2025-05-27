@@ -1,17 +1,16 @@
 <template>
-  <div style="max-width: 400px; margin: auto">
-    <el-card>
-      <h2>年龄计算器</h2>
-      <el-date-picker v-model="birth" type="date" placeholder="选择出生日期" style="width: 100%" />
-      <el-button type="primary" style="margin-top: 1em" @click="calc">计算年龄</el-button>
-      <el-alert
-        v-if="age"
-        :title="`年龄：${age} 岁`"
-        type="success"
-        show-icon
-        style="margin-top: 1em"
-      />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">年龄计算器</h2>
+    <el-date-picker v-model="birth" type="date" placeholder="选择出生日期" style="width: 100%" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top: 1em" @click="calc">计算年龄</el-button>
+    <el-alert
+      v-if="age"
+      :title="`年龄：${age} 岁`"
+      type="success"
+      show-icon
+      class="sci-alert"
+      style="margin-top: 1em"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -31,3 +30,6 @@ function calc() {
   age.value = a.toString()
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

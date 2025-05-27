@@ -1,12 +1,10 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>亲戚称呼计算器</h2>
-      <el-input v-model="relation" placeholder="如：爸爸的姐姐" />
-      <el-button type="primary" style="margin-top:1em;" @click="calc">计算</el-button>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top:1em;" />
-      <el-alert v-if="!result" type="info" title="仅支持常见称呼，如：爸爸的姐姐、妈妈的哥哥" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">亲戚称呼计算器</h2>
+    <el-input v-model="relation" placeholder="如：爸爸的姐姐" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="calc">计算</el-button>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
+    <el-alert v-if="!result" type="info" title="仅支持常见称呼，如：爸爸的姐姐、妈妈的哥哥" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -23,3 +21,6 @@ function calc() {
   else result.value = '未识别，请输入常见称呼'
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

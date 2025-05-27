@@ -1,9 +1,9 @@
 <template>
-  <section class="tool-section">
-    <h2>Emoji墙</h2>
-    <el-input v-model="emoji" placeholder="输入emoji" style="max-width:120px;" />
-    <el-button @click="addEmoji" type="primary" style="margin-left:10px;">添加</el-button>
-    <div class="emoji-wall">
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">Emoji墙</h2>
+    <el-input v-model="emoji" placeholder="输入emoji" class="sci-input" style="max-width:120px;" />
+    <el-button @click="addEmoji" type="primary" class="sci-btn" style="margin-left:10px;">添加</el-button>
+    <div class="emoji-wall sci-result">
       <span v-for="(e, i) in emojis" :key="i" class="emoji-item">{{ e }}</span>
     </div>
   </section>
@@ -22,11 +22,7 @@ function addEmoji() {
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+@import './_sci-style.css';
 .emoji-wall {
   margin-top: 1.2em;
   font-size: 2em;

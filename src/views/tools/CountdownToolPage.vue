@@ -1,11 +1,11 @@
 <template>
-  <section class="tool-section">
-    <h2>倒计时</h2>
-    <div>
-      <el-input v-model="input" placeholder="请输入目标时间(YYYY-MM-DD HH:mm:ss)" style="max-width:320px;" />
-      <el-button @click="startCountdown" type="primary" style="margin-left:10px;">开始</el-button>
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">倒计时</h2>
+    <div class="sci-form-row">
+      <el-input v-model="input" placeholder="请输入目标时间(YYYY-MM-DD HH:mm:ss)" class="sci-input" style="max-width:320px;" />
+      <el-button @click="startCountdown" type="primary" class="sci-btn" style="margin-left:10px;">开始</el-button>
     </div>
-    <div v-if="countdown !== null" class="countdown-result">
+    <div v-if="countdown !== null" class="countdown-result sci-result">
       剩余时间：{{ countdown }}
     </div>
   </section>
@@ -46,14 +46,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+@import './_sci-style.css';
 .countdown-result {
   margin-top: 1.2em;
   font-size: 1.2em;
-  color: #409eff;
 }
 </style>

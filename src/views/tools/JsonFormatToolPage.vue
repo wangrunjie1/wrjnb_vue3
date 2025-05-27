@@ -1,12 +1,10 @@
 <template>
-  <div style="max-width:700px;margin:auto;">
-    <el-card>
-      <h2>JSON格式化美化工具</h2>
-      <el-input v-model="input" type="textarea" :rows="10" placeholder="输入JSON字符串" />
-      <el-button type="primary" style="margin-top:1em;" @click="format">格式化</el-button>
-      <el-input v-model="output" type="textarea" :rows="10" readonly style="margin-top:1em;" placeholder="格式化结果" />
-      <el-alert v-if="error" type="error" :title="error" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">JSON格式化美化工具</h2>
+    <el-input v-model="input" type="textarea" :rows="10" placeholder="输入JSON字符串" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="format">格式化</el-button>
+    <el-input v-model="output" type="textarea" :rows="10" readonly class="sci-input" style="margin-top:1em;" placeholder="格式化结果" />
+    <el-alert v-if="error" type="error" :title="error" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -24,3 +22,6 @@ function format() {
   }
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

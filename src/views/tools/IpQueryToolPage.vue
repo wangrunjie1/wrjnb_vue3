@@ -1,11 +1,9 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>IP归属地查询</h2>
-      <el-input v-model="ip" placeholder="输入IP地址" />
-      <el-button type="primary" style="margin-top:1em;" @click="query">查询</el-button>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">IP归属地查询</h2>
+    <el-input v-model="ip" placeholder="输入IP地址" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="query">查询</el-button>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -22,3 +20,6 @@ async function query() {
     : '查询失败'
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

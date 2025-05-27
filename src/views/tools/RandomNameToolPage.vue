@@ -1,11 +1,9 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>随机姓名生成</h2>
-      <el-input-number v-model="count" :min="1" :max="20" />
-      <el-button type="primary" style="margin-left:1em;" @click="gen">生成</el-button>
-      <el-input v-model="names" type="textarea" :rows="6" readonly style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">随机姓名生成</h2>
+    <el-input-number v-model="count" :min="1" :max="20" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-left:1em;" @click="gen">生成</el-button>
+    <el-input v-model="names" type="textarea" :rows="6" readonly class="sci-input" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -22,3 +20,6 @@ function gen() {
   ).join('\n')
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

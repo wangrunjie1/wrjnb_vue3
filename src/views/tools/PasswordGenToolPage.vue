@@ -1,13 +1,11 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>随机密码生成器</h2>
-      <el-input-number v-model="len" :min="4" :max="32" style="width:120px;" />
-      <el-button type="primary" style="margin-left:1em;" @click="gen">生成</el-button>
-      <el-input v-model="pwd" readonly style="margin-top:1em;" />
-      <el-button style="margin-top:1em;" @click="copy">复制</el-button>
-      <el-alert v-if="msg" :title="msg" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">随机密码生成器</h2>
+    <el-input-number v-model="len" :min="4" :max="32" class="sci-input" style="width:120px;" />
+    <el-button type="primary" class="sci-btn" style="margin-left:1em;" @click="gen">生成</el-button>
+    <el-input v-model="pwd" readonly class="sci-input" style="margin-top:1em;" />
+    <el-button class="sci-btn" style="margin-top:1em;" @click="copy">复制</el-button>
+    <el-alert v-if="msg" :title="msg" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -25,3 +23,6 @@ function copy() {
   msg.value = '已复制到剪贴板'
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

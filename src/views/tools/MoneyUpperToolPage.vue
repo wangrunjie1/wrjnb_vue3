@@ -1,12 +1,9 @@
 <template>
-  <!-- 只写页面内容，不要有 <router-view /> -->
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>金额大写转换</h2>
-      <el-input v-model="num" placeholder="请输入金额" />
-      <el-button type="primary" style="margin-top:1em;" @click="convert">转换</el-button>
-      <el-input v-model="result" readonly style="margin-top:1em;" placeholder="大写金额" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">金额大写转换</h2>
+    <el-input v-model="num" placeholder="请输入金额" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="convert">转换</el-button>
+    <el-input v-model="result" readonly class="sci-input" style="margin-top:1em;" placeholder="大写金额" />
   </div>
 </template>
 <script setup lang="ts">
@@ -42,3 +39,6 @@ function convert() {
   result.value = s
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

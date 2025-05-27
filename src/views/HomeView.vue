@@ -98,7 +98,6 @@
     <el-dialog v-model="showDanmuInput" title="留言墙" width="320px" :close-on-click-modal="false">
       <el-input
         v-model="danmuInput"
-        maxlength="40"
         show-word-limit
         placeholder="说点什么吧~"
         @keyup.enter="sendDanmu"
@@ -273,314 +272,134 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
 .home-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 60px);
-  color: #444; // 更柔和的深灰色
-  font-family: 'Segoe UI', Arial, sans-serif;
+  height: calc(100vh - 64px);
+  color: #00ffe7;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
   text-align: center;
   transition: background 0.5s;
   position: relative;
   overflow: hidden;
+  background: rgba(20,30,48,0.96);
 }
 
 .dynamic-bg {
-  /* 更加浅色的动态渐变动画背景 */
   background: linear-gradient(
-    270deg,
-    #e0ffe8,
-    #e0f7fa,
-    #f8e8ff,
-    #e3f6ff,
-    #eafff3,
-    #fbefff,
-    #ffeaea,
-    #e0ffe8
+    120deg,
+    #0a1a28 0%,
+    #007cf0 40%,
+    #00ffe7 100%
   );
-  background-size: 1600% 1600%;
-  animation: gradientMove 18s ease-in-out infinite;
+  background-size: 200% 200%;
+  animation: sci-gradient-move 16s ease-in-out infinite;
 }
 
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 50% 100%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 50% 0%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+@keyframes sci-gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero {
+  background: rgba(10,20,40,0.92);
+  border-radius: 24px;
+  box-shadow: 0 0 32px #00ffe7a0, 0 0 12px #007cf0a0;
+  border: 2px solid #00ffe7;
+  padding: 3.5rem 2.5rem 2.5rem 2.5rem;
+  margin: 0 auto;
+  max-width: 600px;
+  width: 98vw;
+  position: relative;
+  z-index: 2;
+
   h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
+    margin-bottom: 1.2rem;
     cursor: pointer;
     user-select: none;
-    transition: color 0.3s;
+    font-weight: 700;
+    color: #00ffe7;
+    text-shadow: 0 0 16px #00ffe7cc, 0 0 4px #007cf0a0;
+    letter-spacing: 2px;
+    transition: color 0.3s, text-shadow 0.3s;
 
     &.shake {
       animation: shake 0.6s;
-      color: #ffeb3b;
+      color: #fff;
       text-shadow:
-        0 0 10px #ffeb3b,
-        0 0 20px #f44336;
+        0 0 18px #00ffe7,
+        0 0 32px #007cf0;
     }
   }
 
   .subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #ffe082;
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+    color: #00ffe7;
     cursor: pointer;
-    transition:
-      color 0.3s,
-      background 0.3s;
+    transition: color 0.3s, background 0.3s;
     user-select: none;
     display: inline-block;
-    padding: 0 0.5em;
+    padding: 0 0.7em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px #00ffe7cc;
 
     &.gradient {
-      background: linear-gradient(90deg, #ffb300, #ff4081, #40c4ff, #69f0ae);
+      background: linear-gradient(90deg, #00ffe7, #007cf0, #00ffe7);
       background-size: 200% 100%;
       background-position: left;
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      animation: gradient-move 1.2s linear infinite;
+      animation: sci-gradient-move 1.2s linear infinite;
+      text-shadow: none;
     }
   }
 
   p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-  }
-
-  button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      transform 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-    &.bounce {
-      animation: bounce 0.5s;
-    }
-
-    &:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
+    font-size: 1.15rem;
+    margin-bottom: 2.2rem;
+    color: #b0eaff;
+    text-shadow: 0 0 6px #00ffe7a0;
   }
 }
 
-@keyframes shake {
-  10%,
-  90% {
-    transform: translateX(-2px);
-  }
-  20%,
-  80% {
-    transform: translateX(4px);
-  }
-  30%,
-  50%,
-  70% {
-    transform: translateX(-8px);
-  }
-  40%,
-  60% {
-    transform: translateX(8px);
-  }
+.center-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2.2rem 0 1.2rem 0;
+  flex-wrap: wrap;
+  gap: 1.2em;
 }
 
-@keyframes gradient-move {
-  0% {
-    background-position: left;
-  }
-  100% {
-    background-position: right;
-  }
+.danmu-btn,
+.msgboard-btn {
+  position: static !important;
+  margin-bottom: 0 !important;
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%);
+  color: #fff !important;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 16px #00ffe7a0;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.08em;
+  padding: 0.9em 2.2em;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
-.secret-message {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  color: #fffde4;
-  font-size: 1.3rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  letter-spacing: 2px;
-}
-
-.dev-info {
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.5rem;
-  background: rgba(0, 0, 0, 0.18);
-  border-radius: 8px;
-  color: #ffe082;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.egg-master {
-  margin-top: 1.5rem;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
-  color: #ffeb3b;
-  font-size: 1.4rem;
-  font-weight: bold;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14);
-  letter-spacing: 2px;
-}
-
-.egg-tips {
-  margin-top: 1.5rem;
-  padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.22);
-  border-radius: 10px;
-  color: #fffde4;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-  text-align: left;
-  display: inline-block;
-}
-
-.kfc-error {
-  position: fixed;
-  top: 180px;
-  left: 50%;
-  z-index: 1000;
-  width: 90vw;
-  max-width: 700px;
-  min-width: 220px;
-  margin: 0 auto;
-  /* 直接用margin-left替代transform，避免初始抖动 */
-  margin-left: calc(-45vw);
-  /* 若屏幕宽度大于700px，margin-left为-350px */
-  /* 下面的媒体查询会修正 */
-  padding: 2rem 1.2rem;
-  background: #2d2d2d;
-  border-radius: 16px;
-  color: #ff5252;
-  font-size: 1.15rem;
-  font-family: 'Fira Mono', 'Consolas', monospace;
-  box-shadow: 0 4px 24px rgba(255, 82, 82, 0.22);
-  border: 2.5px solid #ff5252;
-  animation: kfc-error-pop 0.5s;
-  text-align: left;
-  word-break: break-all;
-  cursor: pointer;
-
-  &-title {
-    font-weight: bold;
-    font-size: 1.15em;
-  }
-  &-msg {
-    color: #fff;
-    font-size: 1em;
-  }
-}
-
-.kfc-translation {
-  position: fixed;
-  top: 180px;
-  left: 50%;
-  z-index: 1001;
-  width: 90vw;
-  max-width: 700px;
-  min-width: 220px;
-  margin: 0 auto;
-  margin-left: calc(-45vw);
-  padding: 2rem 1.2rem;
-  background: #fffbe6;
-  border-radius: 16px;
-  color: #d32f2f;
-  font-size: 1.15rem;
-  font-family: 'Fira Mono', 'Consolas', monospace;
-  box-shadow: 0 4px 24px rgba(255, 82, 82, 0.22);
-  border: 2.5px solid #ff5252;
-  animation: kfc-error-pop 0.5s;
-  text-align: left;
-  word-break: break-all;
-  cursor: pointer;
-
-  &-title {
-    font-weight: bold;
-    font-size: 1.15em;
-  }
-  &-msg {
-    color: #333;
-    font-size: 1em;
-  }
-}
-
-.kfc-pay {
-  position: fixed;
-  top: 180px;
-  left: 50%;
-  z-index: 1001;
-  width: 90vw;
-  max-width: 700px;
-  min-width: 220px;
-  margin: 0 auto;
-  margin-left: calc(-45vw);
-  padding: 2rem 1.2rem 1.2rem 1.2rem;
-  background: #fff;
-  border-radius: 16px;
-  color: #222;
-  font-size: 1.15rem;
-  font-family: 'Fira Mono', 'Consolas', monospace;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
-  border: 2.5px solid #ff5252;
-  animation: kfc-error-pop 0.5s;
-  text-align: center;
-  word-break: break-all;
-  cursor: pointer;
-
-  &-title {
-    font-weight: bold;
-    font-size: 1.15em;
-    color: #d32f2f;
-    margin-bottom: 1em;
-    display: block;
-  }
-  &-imgs {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2vw;
-    margin-top: 1em;
-    flex-wrap: wrap;
-
-    img {
-      width: 180px;
-      max-width: 38vw;
-      border-radius: 10px;
-      border: 1.5px solid #eee;
-      background: #fafafa;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      margin-bottom: 0.5em;
-    }
-  }
+.danmu-btn:hover,
+.msgboard-btn:hover {
+  background: linear-gradient(90deg, #007cf0 0%, #00ffe7 100%);
+  box-shadow: 0 0 28px #00ffe7cc;
 }
 
 .danmu-wall {
@@ -596,12 +415,14 @@ onMounted(() => {
 .danmu-msg {
   position: absolute;
   white-space: nowrap;
-  font-size: 1.1em;
+  font-size: 1.18em;
   font-weight: bold;
-  opacity: 0.92;
+  opacity: 1;
   animation: danmu-move linear;
   animation-fill-mode: forwards;
   pointer-events: none;
+  letter-spacing: 1px;
+  z-index: 20;
 }
 @keyframes danmu-move {
   0% {
@@ -611,105 +432,54 @@ onMounted(() => {
     transform: translateX(-100vw);
   }
 }
-.danmu-btn {
-  position: fixed;
-  right: 18px;
-  bottom: 24px;
-  z-index: 1002;
-}
+
 .danmu-speed-btn {
   position: fixed;
   right: 18px;
   bottom: 30px;
   z-index: 1003;
 }
-/* 新增弹幕速度挡位选中样式 */
+
 :deep(.el-dropdown-menu__item.is-active) {
-  background: #409eff !important;
-  color: #fff !important;
+  background: #00ffe7 !important;
+  color: #222 !important;
   font-weight: bold;
 }
-@media (min-width: 780px) {
-  .kfc-error,
-  .kfc-translation,
-  .kfc-pay {
-    width: 700px;
-    margin-left: -350px;
-  }
-}
-@media (max-width: 600px) {
-  .kfc-error,
-  .kfc-translation,
-  .kfc-pay {
-    top: 40px;
-    padding: 1.1rem 0.7rem;
-    font-size: 0.98rem;
-    border-radius: 10px;
-    width: 94vw;
-    margin-left: -47vw;
-    min-width: 0;
-  }
-  .kfc-pay-imgs img {
-    width: 44vw;
-    max-width: 90vw;
-  }
-}
-@keyframes kfc-error-pop {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes thursday-pop {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-.center-btn-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2.2rem 0 1.2rem 0;
-  flex-wrap: wrap;
-  gap: 0.8em;
+
+.kfc-error,
+.kfc-translation,
+.kfc-pay {
+  /* 保持原有样式，或可略微调整为科技感 */
+  background: rgba(10,20,40,0.98);
+  border: 2.5px solid #00ffe7;
+  color: #00ffe7;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  box-shadow: 0 0 24px #00ffe7a0;
 }
 
-.danmu-btn,
-.msgboard-btn {
-  position: static !important;
-  margin-bottom: 0 !important;
-  box-shadow: 0 2px 12px rgba(64, 158, 255, 0.18);
+.kfc-error-title,
+.kfc-translation-title,
+.kfc-pay-title {
+  color: #00ffe7 !important;
+}
+
+.kfc-error-msg,
+.kfc-translation-msg {
+  color: #b0eaff !important;
+}
+
+.kfc-pay-imgs img {
+  border: 1.5px solid #00ffe7;
+  box-shadow: 0 0 8px #00ffe7a0;
 }
 
 .msgboard-empty {
-  color: #aaa;
+  color: #00ffe7;
   text-align: center;
   padding: 2em 0;
   font-size: 1.1em;
   letter-spacing: 1px;
+  text-shadow: 0 0 8px #00ffe7a0;
 }
 .msgboard-item-outer {
   display: flex;
@@ -719,11 +489,9 @@ onMounted(() => {
   background: none;
 }
 .msgboard-item {
-  background: #fff;
+  background: rgba(10,20,40,0.92);
   border-radius: 12px;
-  box-shadow:
-    0 2px 10px rgba(64, 158, 255, 0.07),
-    0 1.5px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 0 12px #00ffe7a0, 0 0 4px #007cf0a0;
   padding: 1em 1.2em 0.7em 1.2em;
   margin: 0.2em 0;
   width: 98%;
@@ -733,7 +501,9 @@ onMounted(() => {
   flex-direction: column;
   align-items: flex-start;
   transition: box-shadow 0.2s;
-  border: 1px solid #f0f0f0;
+  border: 1.5px solid #00ffe7;
+  color: #b0eaff;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
 }
 .msgboard-header {
   display: flex;
@@ -747,44 +517,199 @@ onMounted(() => {
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  background: #eee;
-  border: 1.5px solid #e0e0e0;
+  background: #222;
+  border: 1.5px solid #00ffe7;
   flex-shrink: 0;
-  box-shadow: 0 1px 4px rgba(64, 158, 255, 0.09);
+  box-shadow: 0 1px 4px #00ffe7a0;
 }
 .msgboard-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-size: 0.98em;
-  color: #888;
+  color: #00ffe7;
   line-height: 1.2;
   gap: 2px;
 }
 .msgboard-loc {
-  color: #409eff;
+  color: #00ffe7;
   font-size: 1em;
   font-weight: 500;
   margin-bottom: 1px;
 }
 .msgboard-time {
-  color: #bbb;
+  color: #b0eaff;
   font-size: 0.93em;
 }
 .msgboard-content {
   font-size: 1.08em;
   word-break: break-word;
   margin: 0.3em 0 0.1em 0;
-  color: #333;
+  color: #b0eaff;
   line-height: 1.7;
   width: 100%;
   text-align: left;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
 }
+
+/* 覆盖Element Plus弹窗为科技感风格，仅弹窗本身和控件，不动.msgboard-item等留言内容 */
+:deep(.el-dialog) {
+  background: rgba(10,20,40,0.96) !important;
+  border-radius: 18px !important;
+  border: 2px solid #00ffe7 !important;
+  box-shadow: 0 0 32px #00ffe7a0, 0 0 12px #007cf0a0 !important;
+  color: #b0eaff !important;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
+  padding: 0 !important;
+}
+:deep(.el-dialog__header) {
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
+  color: #fff !important;
+  font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif !important;
+  font-weight: bold !important;
+  font-size: 1.15em !important;
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: 0 2px 8px #00ffe7a0 !important;
+  padding: 1.2em 1.5em 1em 1.5em !important;
+}
+:deep(.el-dialog__title) {
+  color: #fff !important;
+  letter-spacing: 1px !important;
+  text-shadow: 0 0 8px #00ffe7cc !important;
+}
+:deep(.el-dialog__body) {
+  background: transparent !important;
+  color: #b0eaff !important;
+  padding: 1.5em 1.5em 1em 1.5em !important;
+}
+:deep(.el-dialog__footer) {
+  background: transparent !important;
+  border-top: 1px solid #00ffe733 !important;
+  border-radius: 0 0 18px 18px !important;
+  padding: 1em 1.5em 1.2em 1.5em !important;
+}
+
+/* 输入框、文本域、按钮科技感 */
+:deep(.el-input__wrapper),
+:deep(.el-input-number__wrapper),
+:deep(.el-textarea__inner) {
+  background: rgba(10,20,40,0.85) !important;
+  border: 1.5px solid #007cf0 !important;
+  border-radius: 10px !important;
+  color: #b0eaff !important;
+  box-shadow: 0 0 8px #00ffe7a0 !important;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+:deep(.el-input__wrapper):focus-within,
+:deep(.el-input-number__wrapper):focus-within,
+:deep(.el-textarea__inner):focus {
+  border-color: #00ffe7 !important;
+  box-shadow: 0 0 16px #00ffe7cc !important;
+}
+:deep(.el-input__inner),
+:deep(.el-textarea__inner) {
+  color: #b0eaff !important;
+  background: transparent !important;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
+}
+:deep(.el-radio-button__inner) {
+  background: rgba(10,20,40,0.85) !important;
+  border: 1.5px solid #007cf0 !important;
+  color: #00ffe7 !important;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+  box-shadow: 0 0 4px #00ffe7a0 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* 选中时高亮背景和描边，字体变白 */
+:deep(.el-radio-button__orig-radio:checked + .el-radio-button__inner) {
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%) !important;
+  color: #fff !important;
+  border-color: #00ffe7 !important;
+  box-shadow: 0 0 12px #00ffe7cc !important;
+  font-weight: bold !important;
+}
+
+/* 给选中项加一个发光外环 */
+:deep(.el-radio-button.is-checked .el-radio-button__inner) {
+  box-shadow: 0 0 0 2px #00ffe7cc, 0 0 12px #00ffe7cc !important;
+}
+
+/* 选中项里的色块也变白色边框 */
+:deep(.el-radio-button.is-checked .el-radio-button__inner span) {
+  border: 1.5px solid #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 4px #fff;
+}
+
+/* 色块span基础样式，未选中时无边框 */
+:deep(.el-radio-button__inner span) {
+  display: inline-block;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 2px;
+  margin: 0 2px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* 按钮组 */
+.el-button-group {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* 自定义滚动条样式 */
+:deep(.el-scrollbar) {
+  width: 8px;
+  background: rgba(10, 20, 40, 0.8);
+  border-radius: 4px;
+}
+:deep(.el-scrollbar__bar) {
+  background: #00ffe7a0 !important;
+  border-radius: 4px;
+}
+:deep(.el-scrollbar__thumb) {
+  background: #007cf0 !important;
+  border-radius: 4px;
+}
+
+/* 弹窗内分割线 */
+:deep(.el-divider) {
+  border-color: #00ffe733 !important;
+  background: #00ffe733 !important;
+}
+
+/* 弹窗内图片预览边框 */
+:deep(.el-dialog) img {
+  border: 1.5px solid #00ffe7 !important;
+  box-shadow: 0 0 8px #00ffe7a0 !important;
+}
+
+/* 选中文字颜色 */
+:deep(.el-input__inner)::selection,
+:deep(.el-textarea__inner)::selection {
+  background: #00ffe7 !important;
+  color: #222 !important;
+}
+
+/* 兼容移动端弹窗宽度 */
 @media (max-width: 600px) {
-  .el-dialog {
+  :deep(.el-dialog) {
     width: 98vw !important;
     min-width: 0 !important;
     padding: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    max-width: 99vw;
   }
   .msgboard-item {
     max-width: 98vw;
@@ -797,5 +722,12 @@ onMounted(() => {
   .msgboard-content {
     font-size: 1em;
   }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-8px); }
+  40%, 60% { transform: translateX(8px); }
 }
 </style>

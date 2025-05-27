@@ -1,14 +1,13 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>身份证信息查询</h2>
-      <el-input v-model="id" placeholder="输入18位身份证号" maxlength="18" />
-      <el-button type="primary" style="margin-top:1em;" @click="parseId">查询</el-button>
-      <el-alert v-if="info" :title="info" type="success" show-icon style="margin-top:1em;" />
-      <el-alert v-if="error" :title="error" type="error" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">身份证信息查询</h2>
+    <el-input v-model="id" placeholder="输入18位身份证号" maxlength="18" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="parseId">查询</el-button>
+    <el-alert v-if="info" :title="info" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
+    <el-alert v-if="error" :title="error" type="error" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 const id = ref('')
@@ -29,3 +28,7 @@ function parseId() {
   info.value = `生日：${year}-${month}-${day}，性别：${gender}`
 }
 </script>
+
+<style scoped>
+@import './_sci-style.css';
+</style>

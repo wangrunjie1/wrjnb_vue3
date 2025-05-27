@@ -1,20 +1,18 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>小费计算器</h2>
-      <el-form label-width="80px">
-        <el-form-item label="消费金额">
-          <el-input-number v-model="amount" :min="0" />
-        </el-form-item>
-        <el-form-item label="小费比例(%)">
-          <el-input-number v-model="percent" :min="0" :max="100" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="calc">计算</el-button>
-        </el-form-item>
-      </el-form>
-      <el-alert v-if="result" :title="result" type="success" show-icon style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">小费计算器</h2>
+    <el-form label-width="80px">
+      <el-form-item label="消费金额">
+        <el-input-number v-model="amount" :min="0" class="sci-input" />
+      </el-form-item>
+      <el-form-item label="小费比例(%)">
+        <el-input-number v-model="percent" :min="0" :max="100" class="sci-input" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" class="sci-btn" @click="calc">计算</el-button>
+      </el-form-item>
+    </el-form>
+    <el-alert v-if="result" :title="result" type="success" show-icon class="sci-alert" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -28,3 +26,6 @@ function calc() {
   result.value = `小费：${tip.toFixed(2)}，总计：${(amount.value + tip).toFixed(2)}`
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

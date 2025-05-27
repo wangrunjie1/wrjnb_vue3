@@ -1,9 +1,11 @@
 <template>
-  <section class="tool-section">
-    <h2>天气查询（示例）</h2>
-    <el-input v-model="city" placeholder="请输入城市名" style="max-width:200px;" />
-    <el-button @click="getWeather" type="primary" style="margin-left:10px;">查询</el-button>
-    <div v-if="weather" class="weather-result">{{ weather }}</div>
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">天气查询（示例）</h2>
+    <div class="sci-form-row">
+      <el-input v-model="city" placeholder="请输入城市名" class="sci-input" />
+      <el-button @click="getWeather" type="primary" class="sci-btn">查询</el-button>
+    </div>
+    <div v-if="weather" class="weather-result sci-result">{{ weather }}</div>
   </section>
 </template>
 
@@ -25,14 +27,5 @@ async function getWeather() {
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-.weather-result {
-  margin-top: 1.2em;
-  font-size: 1.2em;
-  color: #67c23a;
-}
+@import './_sci-style.css';
 </style>

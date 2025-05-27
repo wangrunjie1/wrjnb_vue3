@@ -1,11 +1,9 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>身份证校验码计算</h2>
-      <el-input v-model="id17" maxlength="17" placeholder="输入前17位身份证号" />
-      <el-button type="primary" style="margin-top:1em;" @click="calc">计算</el-button>
-      <el-input v-model="result" readonly style="margin-top:1em;" placeholder="校验码" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">身份证校验码计算</h2>
+    <el-input v-model="id17" maxlength="17" placeholder="输入前17位身份证号" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="calc">计算</el-button>
+    <el-input v-model="result" readonly class="sci-input" style="margin-top:1em;" placeholder="校验码" />
   </div>
 </template>
 <script setup lang="ts">
@@ -24,3 +22,6 @@ function calc() {
   result.value = v[sum % 11]
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

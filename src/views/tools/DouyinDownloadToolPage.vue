@@ -1,28 +1,27 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>抖音视频下载</h2>
-      <el-form @submit.prevent="handleDownload">
-        <el-form-item label="抖音分享链接">
-          <el-input v-model="shareUrl" placeholder="粘贴抖音分享链接"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :loading="loading" @click="handleDownload">解析并下载</el-button>
-        </el-form-item>
-      </el-form>
-      <div v-if="videoUrl" style="margin-top:1em;">
-        <video :src="videoUrl" controls style="width:100%;"></video>
-        <el-button type="success" style="margin-top:1em;" :href="videoUrl" download target="_blank">下载无水印视频</el-button>
-      </div>
-      <el-alert v-if="error" type="error" :title="error" show-icon style="margin-top:1em;" />
-      <el-alert
-        v-if="!error && !videoUrl"
-        type="info"
-        title="请粘贴抖音分享链接，点击解析"
-        show-icon
-        style="margin-top:1em;"
-      />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">抖音视频下载</h2>
+    <el-form @submit.prevent="handleDownload">
+      <el-form-item label="抖音分享链接">
+        <el-input v-model="shareUrl" placeholder="粘贴抖音分享链接" class="sci-input"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" :loading="loading" class="sci-btn" @click="handleDownload">解析并下载</el-button>
+      </el-form-item>
+    </el-form>
+    <div v-if="videoUrl" style="margin-top:1em;">
+      <video :src="videoUrl" controls style="width:100%;"></video>
+      <el-button type="success" class="sci-btn" style="margin-top:1em;" :href="videoUrl" download target="_blank">下载无水印视频</el-button>
+    </div>
+    <el-alert v-if="error" type="error" :title="error" show-icon class="sci-alert" style="margin-top:1em;" />
+    <el-alert
+      v-if="!error && !videoUrl"
+      type="info"
+      title="请粘贴抖音分享链接，点击解析"
+      show-icon
+      class="sci-alert"
+      style="margin-top:1em;"
+    />
   </div>
 </template>
 
@@ -58,3 +57,7 @@ async function handleDownload() {
   loading.value = false
 }
 </script>
+
+<style scoped>
+@import './_sci-style.css';
+</style>

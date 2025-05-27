@@ -1,11 +1,14 @@
 <template>
-  <section class="tool-section">
-    <h2>长度换算</h2>
-    <el-input-number v-model="meter" :min="0" label="米" />
-    <span style="margin:0 8px;">米 =</span>
-    <span>{{ (meter * 100).toFixed(2) }}</span> 厘米
-    <span style="margin:0 8px;">=</span>
-    <span>{{ (meter * 1000).toFixed(2) }}</span> 毫米
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">长度换算</h2>
+    <div class="sci-form-row">
+      <el-input-number v-model="meter" :min="0" class="sci-input" />
+      <span class="sci-span">米 =</span>
+      <span class="sci-result">{{ (meter * 100).toFixed(2) }}</span>
+      <span class="sci-span">厘米 =</span>
+      <span class="sci-result">{{ (meter * 1000).toFixed(2) }}</span>
+      <span class="sci-span">毫米</span>
+    </div>
   </section>
 </template>
 
@@ -15,9 +18,5 @@ const meter = ref(1)
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+@import './_sci-style.css';
 </style>

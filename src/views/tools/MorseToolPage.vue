@@ -1,12 +1,10 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>摩斯电码转换</h2>
-      <el-input v-model="text" placeholder="输入英文或摩斯码（空格分隔）" />
-      <el-button type="primary" style="margin-top:1em;" @click="toMorse">转摩斯</el-button>
-      <el-button style="margin-top:1em;margin-left:1em;" @click="toText">转英文</el-button>
-      <el-input v-model="result" readonly style="margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">摩斯电码转换</h2>
+    <el-input v-model="text" placeholder="输入英文或摩斯码（空格分隔）" class="sci-input" />
+    <el-button type="primary" class="sci-btn" style="margin-top:1em;" @click="toMorse">转摩斯</el-button>
+    <el-button class="sci-btn" style="margin-top:1em;margin-left:1em;" @click="toText">转英文</el-button>
+    <el-input v-model="result" readonly class="sci-input" style="margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -25,3 +23,6 @@ function toText() {
   result.value = text.value.split(' ').map(m=>rev[m]||m).join('')
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

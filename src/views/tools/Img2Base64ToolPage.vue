@@ -1,11 +1,9 @@
 <template>
-  <div style="max-width:500px;margin:auto;">
-    <el-card>
-      <h2>图片转Base64</h2>
-      <input type="file" @change="onFileChange" accept="image/*" />
-      <el-input v-model="base64" type="textarea" :rows="6" readonly style="margin-top:1em;" placeholder="Base64结果" />
-      <img v-if="base64" :src="base64" style="max-width:100%;margin-top:1em;" />
-    </el-card>
+  <div class="sci-card">
+    <h2 class="sci-title">图片转Base64</h2>
+    <input type="file" @change="onFileChange" accept="image/*" />
+    <el-input v-model="base64" type="textarea" :rows="6" readonly class="sci-input" style="margin-top:1em;" placeholder="Base64结果" />
+    <img v-if="base64" :src="base64" style="max-width:100%;margin-top:1em;" />
   </div>
 </template>
 <script setup lang="ts">
@@ -19,3 +17,6 @@ function onFileChange(e: Event) {
   reader.readAsDataURL(file)
 }
 </script>
+<style scoped>
+@import './_sci-style.css';
+</style>

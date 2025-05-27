@@ -1,8 +1,8 @@
 <template>
-  <section class="tool-section">
-    <h2>每日一言</h2>
-    <el-button @click="fetchQuote" type="primary">获取一句话</el-button>
-    <div v-if="quote" class="quote-result">{{ quote }}</div>
+  <section class="tool-section sci-card">
+    <h2 class="sci-title">每日一言</h2>
+    <el-button @click="fetchQuote" type="primary" class="sci-btn">获取一句话</el-button>
+    <div v-if="quote" class="quote-result sci-result">{{ quote }}</div>
   </section>
 </template>
 
@@ -21,14 +21,5 @@ async function fetchQuote() {
 </script>
 
 <style scoped>
-.tool-section {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-.quote-result {
-  margin-top: 1.2em;
-  font-size: 1.2em;
-  color: #409eff;
-}
+@import './_sci-style.css';
 </style>
