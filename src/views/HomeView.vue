@@ -31,23 +31,6 @@
       </h2>
       <p>探索更多精彩内容，享受极致体验。</p>
       <div class="center-btn-group">
-        <el-button
-          size="large"
-          @mousedown="handleBtnMouseDown"
-          @mouseenter="isBouncing = true"
-          @mouseleave="isBouncing = false"
-          :class="{ bounce: isBouncing }"
-        >
-          了解更多
-        </el-button>
-        <!-- 新增工具箱入口按钮 -->
-        <el-button
-          size="large"
-          style="margin-left: 1em; background: #43e97b"
-          @click="$router.push('/tools')"
-        >
-          🧰 实用工具箱
-        </el-button>
         <!-- 发送弹幕按钮 -->
         <el-button
           size="large"
@@ -70,31 +53,6 @@
           >留言板</el-button
         >
       </div>
-      <!-- 新增彩蛋大师相关内容区域 -->
-      <transition name="fade">
-        <div v-if="showSecret" class="secret-message">🎉 恭喜你发现了隐藏彩蛋！🎉</div>
-      </transition>
-      <transition name="fade">
-        <div v-if="devInfo" class="dev-info">
-          👨‍💻 开发者：wrj<br />
-          <span style="font-size: 0.9em">（你是怎么发现我的？）</span>
-        </div>
-      </transition>
-      <transition name="fade">
-        <div v-if="eggMaster" class="egg-master">🥚 你已成为彩蛋大师！🥚</div>
-      </transition>
-      <transition name="fade">
-        <div v-if="showEggTips" class="egg-tips">
-          <ul>
-            <li>Ctrl+Alt+E：显示隐藏彩蛋</li>
-            <li>L：切换背景</li>
-            <li>副标题点击：出现猫咪</li>
-            <li>按钮连续双击：显示开发者信息</li>
-            <li>C：彩蛋收集家称号</li>
-            <li>↑ ↑ ↓ ↓ ← → ← → b a：彩蛋大师称号</li>
-          </ul>
-        </div>
-      </transition>
       <transition name="fade">
         <div
           v-if="showKfcError || isThursday"
@@ -102,17 +60,9 @@
           @click="showKfcPay = true"
           style="cursor: pointer"
         >
-          <span class="kfc-error-title">Exception Error</span><br />
+          <span class="kfc-error-title">Exception Error!</span><br />
           <span class="kfc-error-msg"
             >Syntax Unexpected string: <b>KFC Crazy Thursday need 50 RMB</b></span
-          >
-        </div>
-      </transition>
-      <transition name="fade">
-        <div v-if="showKfcTranslation" class="kfc-translation" @click="showKfcTranslation = false">
-          <span class="kfc-translation-title">中文翻译</span><br />
-          <span class="kfc-translation-msg"
-            >语法错误：KFC 疯狂星期四需要50元<br />（点此关闭）</span
           >
         </div>
       </transition>
@@ -128,7 +78,9 @@
     </section>
     <!-- 弹幕速度调节按钮 -->
     <el-dropdown class="danmu-speed-btn" trigger="click">
-      <el-button type="primary" :icon="Operation"> 弹幕速度 </el-button>
+      <el-button type="primary" :icon="Operation">
+        弹幕速度({{ getSpeedLabel(danmuSpeed) }})
+      </el-button>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item
@@ -172,9 +124,7 @@
         </el-button>
         <el-divider />
         <el-scrollbar height="56vh">
-          <div v-if="msgList.length === 0" class="msgboard-empty">
-            暂无留言
-          </div>
+          <div v-if="msgList.length === 0" class="msgboard-empty">暂无留言</div>
           <div v-for="item in msgList" :key="item.id" class="msgboard-item-outer">
             <div class="msgboard-item">
               <div class="msgboard-header">
@@ -262,80 +212,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
+// 1. 类型与逻辑全部外部引入
+import { ref } from 'vue'
 import { ChatLineRound, Operation } from '@element-plus/icons-vue'
+import { useDanmu } from '@/composables/useDanmu'
+import { useMsgBoard } from '@/composables/useMsgBoard'
 
-const clickCount = ref(0)
+// 2. 页面级状态
 const isShaking = ref(false)
-const showSecret = ref(false)
 const showCat = ref(false)
-const isBouncing = ref(false)
-const devInfo = ref(false)
 const isSubtitleHover = ref(false)
-const showEggTips = ref(false)
-const eggMaster = ref(false)
 const isThursday = new Date().getDay() === 4
 const showKfcError = ref(false)
-const showKfcTranslation = ref(false)
 const showKfcPay = ref(false)
-const showMsgBoard = ref(false)
-const showMsgInput = ref(false)
 
-const danmuList = ref<any[]>([])
-const allDanmu = ref<any[]>([])
-const showDanmuInput = ref(false)
-const danmuInput = ref('')
-const danmuColor = ref('#409eff')
-const danmuColors = ['#409eff', '#67c23a', '#e6a23c', '#f56c6c', '#909399']
-const msgInputTitle = ref('')
-const msgInputText = ref('')
-const msgInputImgs = ref<string[]>([])
-const msgList = ref<any[]>([])
-// 新增：弹幕速度挡位（1-10，1最快，10最慢，默认5）
-const danmuSpeed = ref(5)
+// 3. 弹幕逻辑
+const {
+  danmuList,
+  showDanmuInput,
+  danmuInput,
+  danmuColor,
+  danmuColors,
+  danmuSpeed,
+  getDanmuDuration,
+  getSpeedLabel,
+  sendDanmu,
+  fetchDanmu,
+} = useDanmu()
 
-let danmuTimer: number | null = null
-let danmuIndex = 0
+// 4. 留言板逻辑
+const {
+  showMsgBoard,
+  showMsgInput,
+  msgInputTitle,
+  msgInputText,
+  msgInputImgs,
+  msgInputPreview,
+  msgList,
+  handleImgUpload,
+  removeImg,
+  sendMsg,
+  fetchMsgList,
+} = useMsgBoard()
 
-// 自定义双击检测
-let lastClickTime = 0
-let clickTimer: number | null = null
-function handleBtnMouseDown() {
-  const now = Date.now()
-  if (now - lastClickTime < 400) {
-    // 双击
-    if (clickTimer) {
-      clearTimeout(clickTimer)
-      clickTimer = null
-    }
-    showDevInfo()
-    lastClickTime = 0
-  } else {
-    // 单击，延迟执行
-    lastClickTime = now
-    if (clickTimer) clearTimeout(clickTimer)
-    clickTimer = window.setTimeout(() => {
-      exploreMore()
-      clickTimer = null
-    }, 350)
-  }
-}
-
-function exploreMore() {
-  clickCount.value++
-  if (clickCount.value === 3) {
-    alert('你真的很想了解更多吗？')
-  } else if (clickCount.value === 5) {
-    alert('再点一次试试？')
-  } else if (clickCount.value > 7) {
-    alert('好吧，暂时真的没有更多内容了😂')
-    clickCount.value = 0
-  } else {
-    alert('更多内容即将上线，敬请期待！')
-  }
-}
-
+// 5. 页面事件
 function titleEasterEgg() {
   isShaking.value = true
   setTimeout(() => {
@@ -343,243 +263,12 @@ function titleEasterEgg() {
   }, 600)
 }
 
-function showDevInfo() {
-  devInfo.value = true
-  setTimeout(() => (devInfo.value = false), 3500)
-}
-
-// 彩蛋大师秘籍
-const konamiCode = [
-  'arrowup',
-  'arrowup',
-  'arrowdown',
-  'arrowdown',
-  'arrowleft',
-  'arrowright',
-  'arrowleft',
-  'arrowright',
-  'b',
-  'a',
-]
-let konamiIndex = 0
-
-function handleKeydown(e: KeyboardEvent) {
-  if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'e') {
-    showSecret.value = !showSecret.value
-  }
-  if (e.key.toLowerCase() === 'c') {
-    alert('你已获得“彩蛋收集家”称号！')
-  }
-  if (e.key === '?') {
-    showEggTips.value = true
-    setTimeout(() => (showEggTips.value = false), 5000)
-  }
-  if (e.key.toLowerCase() === 'k') {
-    showKfcError.value = true
-    setTimeout(() => (showKfcError.value = false), 3500)
-  }
-  // konami code
-  if (e.key.toLowerCase() === konamiCode[konamiIndex]) {
-    konamiIndex++
-    if (konamiIndex === konamiCode.length) {
-      eggMaster.value = true
-      setTimeout(() => (eggMaster.value = false), 4000)
-      konamiIndex = 0
-    }
-  } else {
-    konamiIndex = 0
-  }
-}
-
-function fetchDanmu() {
-  fetch('/danmu-api/danmu')
-    .then((res) => res.json())
-    .then((list) => {
-      // 历史弹幕全部保存，顺序展示
-      allDanmu.value = list as any[]
-      updateDanmuList()
-    })
-}
-
-function updateDanmuList() {
-  // 屏幕上最多显示20条，循环展示历史弹幕
-  const maxShow = 20
-  if (allDanmu.value.length === 0) {
-    danmuList.value = []
-    return
-  }
-  // 取出maxShow条，按顺序循环
-  const showList = []
-  for (let i = 0; i < Math.min(maxShow, allDanmu.value.length); i++) {
-    const idx = (danmuIndex + i) % allDanmu.value.length
-    const msg = allDanmu.value[idx]
-    showList.push({
-      ...msg,
-      left: Math.random() * 40 + 10,
-      duration: Math.random() * 3 + 6, // 这里的duration会被getDanmuDuration处理
-      key: msg.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
-    })
-  }
-  danmuList.value = showList
-  danmuIndex = (danmuIndex + 1) % allDanmu.value.length
-}
-
-function sendDanmu() {
-  if (!danmuInput.value.trim()) {
-    ElMessage.warning('请输入内容')
-    return
-  }
-  fetch('/danmu-api/danmu', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      text: danmuInput.value.trim(),
-      color: danmuColor.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        danmuInput.value = ''
-        showDanmuInput.value = false
-        fetchDanmu()
-        ElMessage.success('发送成功')
-      } else {
-        ElMessage.error('发送失败')
-      }
-    })
-}
-
-// 富文本预览（简单支持图片和换行）
-const msgInputPreview = computed(() => {
-  let html = msgInputText.value.replace(/\n/g, '<br/>')
-  if (msgInputImgs.value.length) {
-    html +=
-      '<br/>' +
-      msgInputImgs.value
-        .map(
-          (src) =>
-            `<img src="${src}" style="max-width:120px;vertical-align:middle;margin:2px 4px;" />`,
-        )
-        .join('')
-  }
-  if (msgInputTitle.value.trim()) {
-    html = `<strong>${msgInputTitle.value.trim()}</strong><br/>` + html
-  }
-  return html
-})
-
-// 处理图片上传，base64存入数组，不插入输入框
-function handleImgUpload(file: File) {
-  return new Promise<void>((resolve) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      msgInputImgs.value.push(reader.result as string)
-      resolve()
-    }
-    reader.readAsDataURL(file)
-  })
-}
-function removeImg(idx: number) {
-  msgInputImgs.value.splice(idx, 1)
-}
-
-// 发布留言
-function sendMsg() {
-  if (
-    !msgInputText.value.trim() &&
-    !msgInputTitle.value.trim() &&
-    msgInputImgs.value.length === 0
-  ) {
-    ElMessage.warning('请输入内容')
-    return
-  }
-  fetch('/danmu-api/msgboard', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ html: msgInputPreview.value }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        msgInputText.value = ''
-        msgInputTitle.value = ''
-        msgInputImgs.value = []
-        showMsgInput.value = false
-        fetchMsgList()
-        ElMessage.success('发布成功')
-      } else {
-        ElMessage.error('发布失败')
-      }
-    })
-}
-
-// 获取留言列表
-function fetchMsgList() {
-  fetch('/danmu-api/msgboard')
-    .then((res) => res.json())
-    .then((list) => {
-      msgList.value = (list as any[]).map((item) => ({
-        ...item,
-        time: new Date(item.time).toLocaleString(),
-      }))
-    })
-}
-
-let msgBoardTimer: number | null = null
-// 监听留言板弹窗打开时自动刷新留言（打开时立即刷新并开始轮询，关闭时停止轮询）
-watch(showMsgBoard, (val) => {
-  if (val) {
-    fetchMsgList()
-    if (msgBoardTimer) clearInterval(msgBoardTimer)
-    msgBoardTimer = window.setInterval(fetchMsgList, 3000)
-  } else {
-    if (msgBoardTimer) {
-      clearInterval(msgBoardTimer)
-      msgBoardTimer = null
-    }
-  }
-})
-
-function getDanmuDuration(base: number) {
-  // 挡位1-10，1最快，10最慢，线性映射到0.4~2.5倍速度
-  const speedMap = [0.4, 0.55, 0.7, 0.85, 1, 1.2, 1.4, 1.7, 2, 2.5]
-  return base * speedMap[danmuSpeed.value - 1]
-}
-
-function getSpeedLabel(n: number) {
-  // 1-10 挡位描述
-  if (n === 1) return '极快'
-  if (n === 2) return '很快'
-  if (n === 3) return '较快'
-  if (n === 4) return '快'
-  if (n === 5) return '中等'
-  if (n === 6) return '稍慢'
-  if (n === 7) return '慢'
-  if (n === 8) return '较慢'
-  if (n === 9) return '很慢'
-  if (n === 10) return '极慢'
-  return ''
-}
-
+// 6. 页面挂载与卸载
+import { onMounted } from 'vue'
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-  // 进来就显示KFC错误（如果是星期四）
-  if (isThursday) {
-    showKfcError.value = false // 保证keydown触发时不会重复
-  }
+  if (isThursday) showKfcError.value = false
   fetchDanmu()
   fetchMsgList()
-  danmuTimer = window.setInterval(() => {
-    fetchDanmu()
-    // 每次获取后自动切换弹幕
-    setTimeout(updateDanmuList, 1000)
-  }, 2000)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeydown)
-  if (danmuTimer) clearInterval(danmuTimer)
-  if (msgBoardTimer) clearInterval(msgBoardTimer)
 })
 </script>
 
@@ -931,7 +620,7 @@ onBeforeUnmount(() => {
 .danmu-speed-btn {
   position: fixed;
   right: 18px;
-  bottom: 90px;
+  bottom: 30px;
   z-index: 1003;
 }
 /* 新增弹幕速度挡位选中样式 */
@@ -1032,7 +721,9 @@ onBeforeUnmount(() => {
 .msgboard-item {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(64, 158, 255, 0.07), 0 1.5px 6px rgba(0,0,0,0.03);
+  box-shadow:
+    0 2px 10px rgba(64, 158, 255, 0.07),
+    0 1.5px 6px rgba(0, 0, 0, 0.03);
   padding: 1em 1.2em 0.7em 1.2em;
   margin: 0.2em 0;
   width: 98%;
@@ -1059,7 +750,7 @@ onBeforeUnmount(() => {
   background: #eee;
   border: 1.5px solid #e0e0e0;
   flex-shrink: 0;
-  box-shadow: 0 1px 4px rgba(64,158,255,0.09);
+  box-shadow: 0 1px 4px rgba(64, 158, 255, 0.09);
 }
 .msgboard-meta {
   display: flex;
