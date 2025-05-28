@@ -1,5 +1,6 @@
 <template>
-  <main class="home-container dynamic-bg">
+  <WebglBgCanvas />
+  <main class="home-container">
     <!-- 弹幕留言墙 -->
     <div class="danmu-wall">
       <transition-group name="danmu" tag="div">
@@ -36,7 +37,6 @@
           size="large"
           class="danmu-btn"
           type="primary"
-          :icon="ChatLineRound"
           @click="showDanmuInput = true"
           style="margin-left: 1em"
         >
@@ -47,7 +47,6 @@
           size="large"
           class="msgboard-btn"
           type="primary"
-          :icon="ChatLineRound"
           @click="showMsgBoard = true"
           style="margin-left: 1em"
           >留言板</el-button
@@ -78,9 +77,7 @@
     </section>
     <!-- 弹幕速度调节按钮 -->
     <el-dropdown class="danmu-speed-btn" trigger="click">
-      <el-button type="primary" :icon="Operation">
-        弹幕速度({{ getSpeedLabel(danmuSpeed) }})
-      </el-button>
+      <el-button type="primary"> 弹幕速度({{ getSpeedLabel(danmuSpeed) }}) </el-button>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item
@@ -207,15 +204,17 @@
         <div class="msgboard-content" v-html="msgInputPreview"></div>
       </div>
     </el-dialog>
+    <AiBot />
   </main>
 </template>
 
 <script setup lang="ts">
 // 1. 类型与逻辑全部外部引入
-import { ref } from 'vue'
-import { ChatLineRound, Operation } from '@element-plus/icons-vue'
+import { ref, onMounted } from 'vue'
 import { useDanmu } from '@/composables/useDanmu'
 import { useMsgBoard } from '@/composables/useMsgBoard'
+import AiBot from '@/components/AiBot/index.vue'
+import WebglBgCanvas from '@/components/WebglBgCanvas.vue'
 
 // 2. 页面级状态
 const isShaking = ref(false)
@@ -263,7 +262,6 @@ function titleEasterEgg() {
 }
 
 // 6. 页面挂载与卸载
-import { onMounted } from 'vue'
 onMounted(() => {
   if (isThursday) showKfcError.value = false
   fetchDanmu()
@@ -285,30 +283,20 @@ onMounted(() => {
   transition: background 0.5s;
   position: relative;
   overflow: hidden;
-  background: rgba(20,30,48,0.96);
+  background: none !important; // 移除原有背景
 }
 
 .dynamic-bg {
-  background: linear-gradient(
-    120deg,
-    #0a1a28 0%,
-    #007cf0 40%,
-    #00ffe7 100%
-  );
-  background-size: 200% 200%;
-  animation: sci-gradient-move 16s ease-in-out infinite;
-}
-
-@keyframes sci-gradient-move {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  background: none !important; // 禁用渐变背景
+  animation: none !important;
 }
 
 .hero {
-  background: rgba(10,20,40,0.92);
+  background: rgba(10, 20, 40, 0.92);
   border-radius: 24px;
-  box-shadow: 0 0 32px #00ffe7a0, 0 0 12px #007cf0a0;
+  box-shadow:
+    0 0 32px #00ffe7a0,
+    0 0 12px #007cf0a0;
   border: 2px solid #00ffe7;
   padding: 3.5rem 2.5rem 2.5rem 2.5rem;
   margin: 0 auto;
@@ -318,15 +306,19 @@ onMounted(() => {
   z-index: 2;
 
   h1 {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     margin-bottom: 1.2rem;
     cursor: pointer;
     user-select: none;
     font-weight: 700;
     color: #00ffe7;
-    text-shadow: 0 0 16px #00ffe7cc, 0 0 4px #007cf0a0;
+    text-shadow:
+      0 0 16px #00ffe7cc,
+      0 0 4px #007cf0a0;
     letter-spacing: 2px;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition:
+      color 0.3s,
+      text-shadow 0.3s;
 
     &.shake {
       animation: shake 0.6s;
@@ -338,11 +330,13 @@ onMounted(() => {
   }
 
   .subtitle {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: 0.7rem;
     color: #00ffe7;
     cursor: pointer;
-    transition: color 0.3s, background 0.3s;
+    transition:
+      color 0.3s,
+      background 0.3s;
     user-select: none;
     display: inline-block;
     padding: 0 0.7em;
@@ -363,7 +357,7 @@ onMounted(() => {
   }
 
   p {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     margin-bottom: 2.2rem;
     color: #b0eaff;
     text-shadow: 0 0 6px #00ffe7a0;
@@ -393,7 +387,9 @@ onMounted(() => {
   letter-spacing: 1px;
   font-size: 1.08em;
   padding: 0.9em 2.2em;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
 }
 
 .danmu-btn:hover,
@@ -450,7 +446,7 @@ onMounted(() => {
 .kfc-translation,
 .kfc-pay {
   /* 保持原有样式，或可略微调整为科技感 */
-  background: rgba(10,20,40,0.98);
+  background: rgba(10, 20, 40, 0.98);
   border: 2.5px solid #00ffe7;
   color: #00ffe7;
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
@@ -489,9 +485,11 @@ onMounted(() => {
   background: none;
 }
 .msgboard-item {
-  background: rgba(10,20,40,0.92);
+  background: rgba(10, 20, 40, 0.92);
   border-radius: 12px;
-  box-shadow: 0 0 12px #00ffe7a0, 0 0 4px #007cf0a0;
+  box-shadow:
+    0 0 12px #00ffe7a0,
+    0 0 4px #007cf0a0;
   padding: 1em 1.2em 0.7em 1.2em;
   margin: 0.2em 0;
   width: 98%;
@@ -554,10 +552,12 @@ onMounted(() => {
 
 /* 覆盖Element Plus弹窗为科技感风格，仅弹窗本身和控件，不动.msgboard-item等留言内容 */
 :deep(.el-dialog) {
-  background: rgba(10,20,40,0.96) !important;
+  background: rgba(10, 20, 40, 0.96) !important;
   border-radius: 18px !important;
   border: 2px solid #00ffe7 !important;
-  box-shadow: 0 0 32px #00ffe7a0, 0 0 12px #007cf0a0 !important;
+  box-shadow:
+    0 0 32px #00ffe7a0,
+    0 0 12px #007cf0a0 !important;
   color: #b0eaff !important;
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
   padding: 0 !important;
@@ -593,13 +593,15 @@ onMounted(() => {
 :deep(.el-input__wrapper),
 :deep(.el-input-number__wrapper),
 :deep(.el-textarea__inner) {
-  background: rgba(10,20,40,0.85) !important;
+  background: rgba(10, 20, 40, 0.85) !important;
   border: 1.5px solid #007cf0 !important;
   border-radius: 10px !important;
   color: #b0eaff !important;
   box-shadow: 0 0 8px #00ffe7a0 !important;
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
-  transition: border 0.2s, box-shadow 0.2s;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
 }
 :deep(.el-input__wrapper):focus-within,
 :deep(.el-input-number__wrapper):focus-within,
@@ -614,11 +616,15 @@ onMounted(() => {
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
 }
 :deep(.el-radio-button__inner) {
-  background: rgba(10,20,40,0.85) !important;
+  background: rgba(10, 20, 40, 0.85) !important;
   border: 1.5px solid #007cf0 !important;
   color: #00ffe7 !important;
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif !important;
-  transition: border 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s,
+    background 0.2s,
+    color 0.2s;
   box-shadow: 0 0 4px #00ffe7a0 !important;
   position: relative;
   z-index: 1;
@@ -635,7 +641,9 @@ onMounted(() => {
 
 /* 给选中项加一个发光外环 */
 :deep(.el-radio-button.is-checked .el-radio-button__inner) {
-  box-shadow: 0 0 0 2px #00ffe7cc, 0 0 12px #00ffe7cc !important;
+  box-shadow:
+    0 0 0 2px #00ffe7cc,
+    0 0 12px #00ffe7cc !important;
 }
 
 /* 选中项里的色块也变白色边框 */
@@ -652,7 +660,9 @@ onMounted(() => {
   border: none;
   border-radius: 2px;
   margin: 0 2px;
-  transition: border 0.2s, box-shadow 0.2s;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
 }
 
 /* 按钮组 */
@@ -719,9 +729,22 @@ onMounted(() => {
 }
 
 @keyframes shake {
-  10%, 90% { transform: translateX(-2px); }
-  20%, 80% { transform: translateX(4px); }
-  30%, 50%, 70% { transform: translateX(-8px); }
-  40%, 60% { transform: translateX(8px); }
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
 }
 </style>

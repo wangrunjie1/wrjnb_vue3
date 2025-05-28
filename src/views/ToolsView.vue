@@ -155,11 +155,11 @@ const activeCategory = computed(() => route.path)
   flex: 1;
   padding: 2.5rem 2vw 2.5rem 2vw;
   min-width: 0;
-  height: calc(100vh - 60px - 3rem);
+  height: calc(100vh - 60px - 2rem);
   overflow-y: auto;
   background: rgba(10, 20, 40, 0.7);
   border-radius: 24px;
-  margin: 1.5rem 1.5rem 1.5rem 0;
+  margin: 1rem 0.6rem;
   box-shadow:
     0 0 32px 0 #00ffe7a0 inset,
     0 0 24px 0 #007cf0a0;

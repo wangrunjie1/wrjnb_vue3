@@ -16,4 +16,12 @@ export default [
   ...pluginVue.configs['flat/essential'],
   ...vueTsEslintConfig(),
   skipFormatting,
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off', // 允许组件名称使用单个单词
+      'vue/valid-v-for': 'off', // v-for 不校验是否有 key
+      '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any 类型
+      'vue/block-lang': 'off', // 允许 <script> 和 <style> 无 lang 属性
+    },
+  },
 ]
