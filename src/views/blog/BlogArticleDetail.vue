@@ -57,13 +57,21 @@ const userStore = useUserStore()
 const user = userStore.user
 
 async function fetchAll() {
-  const [detail, likeRes, countRes, commentRes] = await Promise.all([
-    getArticleDetail(id), isLiked(id), getLikeCount(id), getComments(id)
+  // 公共请求
+  const detailP = getArticleDetail(id)
+  const likeCountP = getLikeCount(id)
+  const commentsP = getComments(id)
+  let isLikedP: Promise<any> | null = null
+  if (userStore.token) isLikedP = isLiked(id)
+
+  const [detailRes, likeCountRes, commentsRes, isLikedRes] = await Promise.all([
+    detailP, likeCountP, commentsP, isLikedP
   ])
-  if (detail.data.code === 0) article.value = detail.data.data
-  liked.value = likeRes.data.data || false
-  likeCount.value = countRes.data.data || 0
-  comments.value = commentRes.data.data || []
+
+  if (detailRes.data.code === 0) article.value = detailRes.data.data
+  likeCount.value = likeCountRes.data.data || 0
+  comments.value = commentsRes.data.data || []
+  liked.value = isLikedRes ? (isLikedRes.data.data || false) : false
 }
 
 async function toggleLike() {
