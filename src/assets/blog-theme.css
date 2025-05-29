@@ -1,0 +1,95 @@
+.blog-card {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 #00ffe7a0, 0 0 12px #007cf0a0;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border: 1.5px solid #00ffe7;
+  font-family: 'Segoe UI', 'Orbitron', 'Arial', sans-serif;
+  transition: box-shadow 0.2s;
+}
+.blog-card:hover {
+  box-shadow: 0 8px 48px 0 #00ffe7cc, 0 0 24px #007cf0cc;
+}
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2em;
+}
+.blog-title {
+  color: #00b8d9;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 8px #00ffe7cc;
+}
+.blog-btn {
+  background: linear-gradient(90deg, #00ffe7 0%, #007cf0 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.08em;
+  box-shadow: 0 0 12px #00ffe7a0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.blog-btn:hover {
+  background: linear-gradient(90deg, #007cf0 0%, #00ffe7 100%);
+  box-shadow: 0 0 24px #00ffe7cc;
+}
+.blog-btn-delete {
+  border-radius: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.blog-table {
+  --el-table-header-bg-color: #f6fbff;
+  --el-table-row-hover-bg-color: #e6f7ff;
+  --el-table-border-color: #00ffe7;
+  --el-table-current-row-bg-color: #e0f7fa;
+  font-size: 1.08em;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.blog-link {
+  color: #007cf0;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.blog-link:hover {
+  color: #00ffe7;
+  text-decoration: underline;
+}
+:root {
+  --blog-card-padding-mobile: 1.2rem 0.5rem;
+}
+@media (max-width: 600px) {
+  .blog-card {
+    padding: var(--blog-card-padding-mobile);
+    border-radius: 12px;
+  }
+  .blog-title {
+    font-size: 1.2em;
+  }
+  .blog-header {
+    flex-direction: column;
+    gap: 0.8em;
+    align-items: flex-start;
+  }
+}
+:deep(.el-table th) {
+  background: #e0f7fa !important;
+  color: #007cf0 !important;
+  font-weight: bold;
+  font-size: 1.08em;
+}
+:deep(.el-table tr) {
+  transition: background 0.2s;
+}
+:deep(.el-table__row:hover) {
+  background: #e6f7ff !important;
+}

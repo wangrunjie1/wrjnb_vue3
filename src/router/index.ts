@@ -79,6 +79,31 @@ const routes = [
       { path: 'randomname', component: () => import('@/views/tools/RandomNameToolPage.vue') },
     ],
   },
+  {
+    path: '/blog',
+    component: () => import('@/views/blog/BlogHome.vue'),
+  },
+  {
+    path: '/blog/login',
+    component: () => import('@/views/blog/BlogLogin.vue'),
+  },
+  {
+    path: '/blog/register',
+    component: () => import('@/views/blog/BlogRegister.vue'),
+  },
+  {
+    path: '/blog/article/:id',
+    component: () => import('@/views/blog/BlogArticleDetail.vue'),
+    props: true,
+  },
+  {
+    path: '/blog/my',
+    component: () => import('@/views/blog/BlogMyArticles.vue'),
+  },
+  {
+    path: '/blog/create',
+    component: () => import('@/views/blog/BlogCreateArticle.vue'),
+  },
 ]
 
 const router = createRouter({
