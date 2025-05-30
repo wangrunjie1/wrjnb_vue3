@@ -9,14 +9,50 @@
       <div class="nav-links">
         <router-link to="/" class="nav-item">首页</router-link>
         <router-link to="/Tools" class="nav-item">实用工具箱</router-link>
+        <router-link to="/blog" class="nav-item">文章</router-link>
         <!-- 其他导航项 -->
+      </div>
+      <div class="nav-user">
+        <template v-if="user">
+          <el-dropdown trigger="hover" @command="handleUserMenu">
+            <span class="user-info">
+              <img :src="user.avatar || defaultAvatar" class="user-avatar" />
+              <span class="user-name">{{ user.username }}</span>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
+        <template v-else>
+          <el-button type="primary" class="login-btn" @click="goLogin">登录/注册</el-button>
+        </template>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-// 组件逻辑
+import { useUserStore } from '@/stores/user'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
+const router = useRouter()
+const defaultAvatar = 'https://api.multiavatar.com/placeholder.png'
+
+function goLogin() {
+  router.push('/blog/login')
+}
+function handleUserMenu(cmd: string) {
+  if (cmd === 'logout') {
+    userStore.logout()
+    router.replace('/')
+  }
+}
 </script>
 
 <style scoped lang="scss">

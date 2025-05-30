@@ -1,5 +1,6 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
+import { httpGetDanmu, httpSendDanmu } from '@/api/index'
 
 const danmuList = ref<Danmu[]>([])
 const allDanmu = ref<Danmu[]>([])
@@ -13,12 +14,10 @@ let danmuTimer: number | null = null
 let danmuIndex = 0
 
 function fetchDanmu() {
-  fetch('/danmu-api/danmu')
-    .then((res) => res.json())
-    .then((list) => {
-      allDanmu.value = list as Danmu[]
-      updateDanmuList()
-    })
+  httpGetDanmu().then((res) => {
+    allDanmu.value = res.data as Danmu[]
+    updateDanmuList()
+  })
 }
 
 function updateDanmuList() {
@@ -47,25 +46,19 @@ function sendDanmu() {
     ElMessage.warning('请输入内容')
     return
   }
-  fetch('/danmu-api/danmu', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      text: danmuInput.value.trim(),
-      color: danmuColor.value,
-    }),
+  httpSendDanmu({
+    text: danmuInput.value.trim(),
+    color: danmuColor.value,
+  }).then((res) => {
+    if (res.data.success) {
+      danmuInput.value = ''
+      showDanmuInput.value = false
+      fetchDanmu()
+      ElMessage.success('发送成功')
+    } else {
+      ElMessage.error('发送失败')
+    }
   })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        danmuInput.value = ''
-        showDanmuInput.value = false
-        fetchDanmu()
-        ElMessage.success('发送成功')
-      } else {
-        ElMessage.error('发送失败')
-      }
-    })
 }
 
 function getDanmuDuration(base: number) {

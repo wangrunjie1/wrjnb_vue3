@@ -1,5 +1,6 @@
 import { ref, computed, watch } from 'vue'
 import { ElMessage } from 'element-plus'
+import { httpGetMsgboard, httpSendMsgboard } from '@/api/index'
 
 const showMsgBoard = ref(false)
 const showMsgInput = ref(false)
@@ -49,35 +50,27 @@ function sendMsg() {
     ElMessage.warning('请输入内容')
     return
   }
-  fetch('/danmu-api/msgboard', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ html: msgInputPreview.value }),
+  httpSendMsgboard({ html: msgInputPreview.value }).then((res) => {
+    if (res.data.success) {
+      msgInputText.value = ''
+      msgInputTitle.value = ''
+      msgInputImgs.value = []
+      showMsgInput.value = false
+      fetchMsgList()
+      ElMessage.success('发布成功')
+    } else {
+      ElMessage.error('发布失败')
+    }
   })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        msgInputText.value = ''
-        msgInputTitle.value = ''
-        msgInputImgs.value = []
-        showMsgInput.value = false
-        fetchMsgList()
-        ElMessage.success('发布成功')
-      } else {
-        ElMessage.error('发布失败')
-      }
-    })
 }
 
 function fetchMsgList() {
-  fetch('/danmu-api/msgboard')
-    .then((res) => res.json())
-    .then((list) => {
-      msgList.value = (list as MsgBoardItem[]).map((item) => ({
-        ...item,
-        time: new Date(item.time).toLocaleString(),
-      }))
-    })
+  httpGetMsgboard().then((res) => {
+    msgList.value = (res.data as MsgBoardItem[]).map((item) => ({
+      ...item,
+      time: new Date(item.time).toLocaleString(),
+    }))
+  })
 }
 
 let msgBoardTimer: number | null = null

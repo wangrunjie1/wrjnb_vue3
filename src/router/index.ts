@@ -69,7 +69,10 @@ const routes = [
       { path: 'billbook', component: () => import('@/views/tools/BillBookToolPage.vue') },
       { path: 'han2unicode', component: () => import('@/views/tools/Han2UnicodeToolPage.vue') },
       { path: 'unicode2han', component: () => import('@/views/tools/Unicode2HanToolPage.vue') },
-      { path: 'colorallconvert', component: () => import('@/views/tools/ColorAllConvertToolPage.vue') },
+      {
+        path: 'colorallconvert',
+        component: () => import('@/views/tools/ColorAllConvertToolPage.vue'),
+      },
       { path: 'asciiconvert', component: () => import('@/views/tools/AsciiConvertToolPage.vue') },
       { path: 'ipconvert', component: () => import('@/views/tools/IpConvertToolPage.vue') },
       { path: 'htmlentity', component: () => import('@/views/tools/HtmlEntityToolPage.vue') },
@@ -79,6 +82,16 @@ const routes = [
       { path: 'randomname', component: () => import('@/views/tools/RandomNameToolPage.vue') },
     ],
   },
+  { path: '/blog', component: () => import('@/views/blog/BlogHome.vue') },
+  { path: '/blog/login', component: () => import('@/views/blog/BlogLogin.vue') },
+  { path: '/blog/register', component: () => import('@/views/blog/BlogRegister.vue') },
+  {
+    path: '/blog/article/:id',
+    component: () => import('@/views/blog/BlogArticleDetail.vue'),
+    props: true,
+  },
+  { path: '/blog/my', component: () => import('@/views/blog/BlogMyArticles.vue') },
+  { path: '/blog/create', component: () => import('@/views/blog/BlogCreateArticle.vue') },
 ]
 
 const router = createRouter({
