@@ -78,7 +78,7 @@ class Request {
 
       // 处理业务错误
       if (data.code !== 0) {
-        throw new Error(data.message || '请求失败')
+        throw new Error(data.msg || '请求失败')
       }
 
       return data

@@ -129,7 +129,7 @@ async function toggleLike() {
         ElMessage.error(res.msg || '点赞失败')
       }
     }
-  } catch (error) {
+  } catch {
     ElMessage.error('操作失败')
   }
 }
@@ -153,7 +153,7 @@ async function submitComment() {
     } else {
       ElMessage.error(res.msg || '评论失败')
     }
-  } catch (error) {
+  } catch {
     ElMessage.error('评论失败')
   }
 }

@@ -45,7 +45,7 @@ const handleSubmit = async () => {
     } else {
       ElMessage.error(res.msg || '发布失败')
     }
-  } catch (error) {
+  } catch {
     ElMessage.error('发布失败')
   }
 }

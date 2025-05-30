@@ -36,11 +36,11 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { getAllArticles } from '@/api/index.ts'
+import { getAllArticles, type Article } from '@/api/index.ts'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 
-const articles = ref([])
+const articles = ref<Article[]>([])
 const loading = ref(false)
 const userStore = useUserStore()
 const user = userStore.user

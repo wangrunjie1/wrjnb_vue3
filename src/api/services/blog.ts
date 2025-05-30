@@ -36,7 +36,7 @@ export function getArticleDetail(id: string) {
 }
 
 // 创建文章
-export function createArticle(data: Omit<Article, 'id' | 'createTime' | 'updateTime'>) {
+export function createArticle(data: Omit<Article, 'id' | 'createTime' | 'updateTime' | 'author'>) {
   return request.post<Article>('/articles/create', data)
 }
 

@@ -42,10 +42,10 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { getMyArticles, deleteArticle } from '@/api/index.ts'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { getMyArticles, deleteArticle, type Article } from '@/api/index.ts'
+import { ElMessage } from 'element-plus'
 
-const articles = ref([])
+const articles = ref<Article[]>([])
 const loading = ref(false)
 
 async function fetchList() {
@@ -68,7 +68,7 @@ const handleDelete = async (id: string) => {
     } else {
       ElMessage.error(res.msg || '删除失败')
     }
-  } catch (error) {
+  } catch {
     ElMessage.error('删除失败')
   }
 }
