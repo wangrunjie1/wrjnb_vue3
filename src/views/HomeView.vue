@@ -72,6 +72,7 @@
           <div class="kfc-pay-imgs">
             <img src="@/assets/images/wx_pay_code1.png" alt="微信收款码1" />
             <img src="@/assets/images/wx_pay_code2.png" alt="微信收款码2" />
+            <img src="@/assets/images/wx_pay_code3.png" alt="微信收款码3" />
           </div>
         </div>
       </transition>
